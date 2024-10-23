@@ -16,6 +16,7 @@
             width: 100px;
             color: var(--black);
             font-size: 14px;
+            font-weight: bold;
             position: relative;
             z-index: 1;
             cursor: pointer;
@@ -29,7 +30,7 @@
             width: 100px;
             border-radius: 15px;
             // background-image: var(--gradient);
-            background-color: orange;
+            background-color: #ff347f;
             position: absolute;
             left: 0;
             transition: left cubic-bezier(0.88, -0.35, 0.565, 1.35) 0.4s;

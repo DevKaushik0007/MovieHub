@@ -3,114 +3,116 @@ import { HiOutlineSearch } from "react-icons/hi";
 import { SlMenu } from "react-icons/sl";
 import { VscChromeClose } from "react-icons/vsc";
 import { useNavigate, useLocation } from "react-router-dom";
-
 import "./style.scss";
-
 import ContentWrapper from "../contentWrapper/ContentWrapper";
-
-import logo from "../../../public/logo4.jpg";
-
+import logo from "../../../public/new.jpg"
 
 const Header = () => {
     const [show, setShow] = useState("top");
     const [lastScrollY, setLastScrollY] = useState(0);
     const [mobileMenu, setMobileMenu] = useState(false);
     const [query, setQuery] = useState("");
-    const [showSearch, setShowSearch] = useState("");
+    const [showSearch, setShowSearch] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [location])
+    }, [location]);
 
     const controlNavbar = () => {
-    console.log(window.scrollY);
-    if(window.scrollY > 200) {
-        if(window.scrollY > lastScrollY && !mobileMenu) {
-            setShow("hide");
-        } else{
-            setShow("show");
+        if (window.scrollY > 200) {
+            if (window.scrollY > lastScrollY && !mobileMenu) {
+                setShow("hide");
+            } else {
+                setShow("show");
+            }
+        } else {
+            setShow("top");
         }
-    } else{
-        setShow("top");
-    }
-    setLastScrollY(window.scrollY);
- };
-    useEffect(() =>{
-        window.addEventListener("scroll",controlNavbar );
-        return() => {
-            window.removeEventListener("scroll",controlNavbar);
-        };
+        setLastScrollY(window.scrollY);
+    };
 
+    useEffect(() => {
+        window.addEventListener("scroll", controlNavbar);
+        return () => {
+            window.removeEventListener("scroll", controlNavbar);
+        };
     }, [lastScrollY]);
 
-    const searchQueryHandler = (event) =>{
-        if(event.key === "Enter" && query.length > 0){
+    const searchQueryHandler = (event) => {
+        if (event.key === "Enter" && query.length > 0) {
             navigate(`/search/${query}`);
             setTimeout(() => {
                 setShowSearch(false);
-            },1000);
+            }, 1000);
         }
     };
 
-
-
-
-    const openSearch =() => {
-        setMobileMenu(false)
-        setShowSearch(true)
+    const openSearch = () => {
+        setMobileMenu(false);
+        setShowSearch(true);
     };
+
     const openMobileMenu = () => {
-        setMobileMenu(true)
-        setShowSearch(false)
+        setMobileMenu(true);
+        setShowSearch(false);
     };
 
     const navigationHandler = (type) => {
+        if (type === "movie") {
+            navigate("/explore/movie");
+        } else {
+            navigate("/explore/tv");
+        }
+        setMobileMenu(false);
+    };
 
-if(type === "movie"){
-    navigate("explore/movie");
-} else{
-    navigate("explore/tv");
-}
-    setMobileMenu(false)
+    // Navigate to login page
+    const navigateToLogin = () => {
+        navigate("/login");
     };
 
     return (
         <header className={`header ${mobileMenu ? "mobileView" : ""} ${show}`}>
             <ContentWrapper>
                 <div className="logo" onClick={() => navigate("/")}>
-                    <img src= {logo} alt=""/>
+                    {/* <img src={logo} alt="Logo" /> */}
+                    <p className="logoText">MovieHub</p>
                 </div>
                 <ul className="menuItems">
                     <li className="menuItem" onClick={() => navigationHandler("movie")}>Movies</li>
-                    {/* <li className="menuItem" onClick={() => navigationHandler("tv")}>TV Shows</li> */}
                     <li className="menuItem">
-                      <HiOutlineSearch  onClick={openSearch} />
+                        <HiOutlineSearch onClick={openSearch} />
+                    </li>
+                    <li className="menuItem">
+                        <button onClick={navigateToLogin} className="loginBtn">Login</button>
                     </li>
                 </ul>
                 <div className="mobileMenuItems">
-                <HiOutlineSearch onClick={openSearch} />
-                {mobileMenu ? (
-                    <VscChromeClose onClick={() =>  setMobileMenu(false)} />
-
-                ) : (
-                    <SlMenu onClick={openMobileMenu} />
-
-                )}
+                    <HiOutlineSearch onClick={openSearch} />
+                    {mobileMenu ? (
+                        <VscChromeClose onClick={() => setMobileMenu(false)} />
+                    ) : (
+                        <SlMenu onClick={openMobileMenu} />
+                    )}
                 </div>
             </ContentWrapper>
-            {showSearch && (<div className="searchBar">
-                <ContentWrapper>
-                <div className="searchInput">
-                <input type="text"
-                placeholder="Search for a movie..." 
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyUp={searchQueryHandler}/>
-                 <VscChromeClose onClick={() =>  setShowSearch(false)} />
-              </div>
-                </ContentWrapper>
-            </div>)}
+            {showSearch && (
+                <div className="searchBar">
+                    <ContentWrapper>
+                        <div className="searchInput">
+                            <input
+                                type="text"
+                                placeholder="Search for a movie..."
+                                onChange={(e) => setQuery(e.target.value)}
+                                onKeyUp={searchQueryHandler}
+                            />
+                            <VscChromeClose onClick={() => setShowSearch(false)} />
+                        </div>
+                    </ContentWrapper>
+                </div>
+            )}
         </header>
     );
 };

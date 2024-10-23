@@ -1,4 +1,42 @@
 @import "../../../mixins.scss";
+.suggestionsList {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+
+    .suggestionItem {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .suggestionImage {
+            width: 50px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+
+        .suggestionText {
+            color: black;
+            font-size: 1rem;
+        }
+    }
+}
+
+
+
+
 .heroBanner {
     width: 100%;
     height: 450px;
@@ -6,29 +44,23 @@
     display: flex;
     align-items: center;
     position: relative;
+    overflow: hidden;
+
     @include md {
         height: 700px;
     }
+
     .backdrop-img {
         width: 100%;
         height: 100%;
         position: absolute;
         top: 0;
         left: 0;
-        // opacity: .5;
-        overflow: hidden;
-        .lazy-load-image-background {
-            width: 100%;
-            height: 100%;
-            img{
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: center;
-            }
-
-        }
+        transition: background-image 1s ease-in-out; // Smooth transition for background image
+        background-size: cover;
+        background-position: center;
     }
+
     .opacity-layer {
         width: 100%;
         height: 250px;
@@ -40,9 +72,8 @@
         position: absolute;
         bottom: 0;
         left: 0;
-
-        
     }
+
     .heroBannerContent {
         display: flex;
         flex-direction: column;
@@ -52,35 +83,37 @@
         position: relative;
         max-width: 800px;
         margin: 0 auto;
-        .title{
+
+        .title {
             font-size: 50px;
-            // background: var(--gradient);
-            // background: -webkit-linear-gradient(98.37deg, blue 0%, purple 100%);
-            background-clip: border-box;
-            background: orange;
+            background: rgb(131,58,180);
+            background: linear-gradient(333deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 700;
             margin-bottom: 30px;
             @include md {
                 margin-bottom: 0;
-                font-size: 90px;
+                font-size: 70px;
             }
         }
+
         .subTitle {
             font-size: 18px;
             font-weight: 500;
             margin-top: 10px;
             margin-bottom: 40px;
-            @include md{
+            @include md {
                 font-size: 24px;
             }
         }
+
         .searchInput {
             display: flex;
             align-items: center;
-            widows: 100%;
-            input{
+            width: 100%;
+
+            input {
                 width: calc(100% - 100px);
                 height: 50px;
                 background-color: white;
@@ -96,10 +129,12 @@
                     padding: 0 30px;
                 }
             }
+
             button {
                 width: 100px;
                 height: 50px;
-                background: var(--gradient);
+                background: rgb(131,58,180);
+                background: linear-gradient(333deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
                 color: white;
                 outline: 0;
                 border: 0;
@@ -111,8 +146,48 @@
                     height: 60px;
                     font-size: 18px;
                 }
-
             }
         }
+
+        .suggestionsList {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            line-height: 40px;
+            font-size: 18px;
+            background: #fff;
+            color: #000;
+            width: 80%;
+            border-radius: 0.3rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 3;
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 10px;
+            padding: 0;
+            li{
+                -webkit-border-radius: 0.5rem; /* For older WebKit-based browsers */
+                -moz-border-radius: 0.5rem; /* For older Firefox versions */
+                -ms-border-radius: 0.5rem; /* For older Internet Explorer versions */
+                -o-border-radius: 0.5rem; /* For older Opera versions */
+                border-radius: 0.5rem; /* Standard property */
+            }
+            
+                padding: 0.5rem;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #f0f0f0;
+                }
+            }
+            // li {
+            //     padding: 0.5rem;
+            //     cursor: pointer;
+
+            //     &:hover {
+            //         background-color: #f0f0f0;
+            //     }
+            // }
+        }
     }
-}
+

@@ -1,0 +1,23 @@
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The Document Object</h1>
+<h2>The write() Method</h2>
+
+<p>Click "open" to open a new window.</p>
+
+<button onclick="myFunction()">Open</button>
+
+<script>
+function myFunction() {
+  const myWindow = window.open();
+  myWindow.document.write("<h1>New Window</h1>");
+  myWindow.document.write("<p>Hello World!</p>");
+}
+</script>
+
+</body>
+</html>
