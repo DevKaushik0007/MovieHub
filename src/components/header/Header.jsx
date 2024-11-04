@@ -85,9 +85,9 @@ const Header = () => {
                     <li className="menuItem">
                         <HiOutlineSearch onClick={openSearch} />
                     </li>
-                    <li className="menuItem">
+                    {/* <li className="menuItem">
                         <button onClick={navigateToLogin} className="loginBtn">Login</button>
-                    </li>
+                    </li> */}
                 </ul>
                 <div className="mobileMenuItems">
                     <HiOutlineSearch onClick={openSearch} />
