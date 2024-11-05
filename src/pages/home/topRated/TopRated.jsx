@@ -20,7 +20,7 @@ const TopRated = () => {
   return(
      <div className='carouselSection'>
     <ContentWrapper>
-        <span className="carouselTitle">TOp Rated </span>
+        <span className="carouselTitle">Top Rated </span>
         <SwitchTabs data={["Movies", "TV Shows", "Cartoons"]} onTabChange={onTabChange} />
         </ContentWrapper>
         <Carousel data={data?.results} loading={loading}
