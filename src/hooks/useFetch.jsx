@@ -11,7 +11,9 @@ const useFetch = (url) => {
         setData(null);
         setError(null);
 
-        fetchDataFromApi(url)
+        const finalUrl = "/" + url.replace(/^\/+/, "");
+
+        fetchDataFromApi(finalUrl)
             .then((res) => {
                 setData(res);
                 setLoading(false);
