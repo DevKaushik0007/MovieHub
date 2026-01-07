@@ -11,9 +11,14 @@ const headers = {
 export const fetchDataFromApi = async (url, params) => {
     try {
         const { data } = await axios.get(BASE_URL + url, {
-            headers,
-            params,
-        });
+   headers,
+   params: {
+      language: "en-US",
+      page: 1,
+      ...params,
+   },
+});
+
         return data;
     } catch (err) {
         console.error("TMDB API Error:", err.response?.data || err.message);
