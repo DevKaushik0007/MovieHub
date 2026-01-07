@@ -11,8 +11,8 @@ import "./style.scss"
 
 const Upcoming = () => {
     const [endpoint, setEndpoint] = useState("movie")
-    const {data, loading } = useFetch(`/${endpoint}/upcoming    
-    `);
+    const { data, loading } = useFetch(`/${endpoint}/upcoming`);
+
 
     const onTabChange = (tab) => {
         setEndpoint(tab === "Movies" ? "movie" : "tv");
