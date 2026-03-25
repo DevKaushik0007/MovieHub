@@ -20,8 +20,16 @@ export const fetchDataFromApi = async (url, params) => {
 });
 
         return data;
+<<<<<<< HEAD
     } catch (err) {
         console.error("TMDB API Error:", err.response?.data || err.message);
         throw err; // important
     }
 };
+=======
+    } catch (err){
+        console.log(err);
+        return err;
+    }
+};
+>>>>>>> eaa593e (updated backend proxy and fixed TMDB API issue)

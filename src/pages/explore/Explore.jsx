@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Select from "react-select";
+import dayjs from "dayjs";
 
 import "./style.scss";
 
@@ -34,11 +35,15 @@ const Explore = () => {
     const [sortby, setSortby] = useState(null);
     const { mediaType } = useParams();
 
-    const { data: genresData } = useFetch(`/genre/${mediaType}/list`);
+    let exploreMediaType = mediaType;
+    if (mediaType === "cartoon") exploreMediaType = "tv";
+    if (mediaType === "month") exploreMediaType = "movie";
+
+    const { data: genresData } = useFetch(`/genre/${exploreMediaType}/list`);
 
     const fetchInitialData = () => {
         setLoading(true);
-        fetchDataFromApi(`/discover/${mediaType}`, filters).then((res) => {
+        fetchDataFromApi(`/discover/${exploreMediaType}`, filters).then((res) => {
             setData(res);
             setPageNum((prev) => prev + 1);
             setLoading(false);
@@ -47,13 +52,13 @@ const Explore = () => {
 
     const fetchNextPageData = () => {
         fetchDataFromApi(
-            `/discover/${mediaType}?page=${pageNum}`,
+            `/discover/${exploreMediaType}?page=${pageNum}`,
             filters
         ).then((res) => {
             if (data?.results) {
                 setData({
                     ...data,
-                    results: [...data?.results, ...res.results],
+                    results: [...data.results, ...res.results],
                 });
             } else {
                 setData(res);
@@ -64,11 +69,18 @@ const Explore = () => {
 
     useEffect(() => {
         filters = {};
+        if (mediaType === "cartoon") {
+            filters.with_genres = "16";
+        } else if (mediaType === "month") {
+            filters.sort_by = "popularity.desc";
+            filters["primary_release_date.gte"] = dayjs().subtract(1, 'month').format('YYYY-MM-DD');
+        }
         setData(null);
         setPageNum(1);
         setSortby(null);
         setGenre(null);
         fetchInitialData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mediaType]);
 
     const onChange = (selectedItems, action) => {
@@ -86,9 +98,14 @@ const Explore = () => {
             if (action.action !== "clear") {
                 let genreId = selectedItems.map((g) => g.id);
                 genreId = JSON.stringify(genreId).slice(1, -1);
+                if (mediaType === "cartoon") genreId = "16," + genreId;
                 filters.with_genres = genreId;
             } else {
-                delete filters.with_genres;
+                if (mediaType === "cartoon") {
+                    filters.with_genres = "16";
+                } else {
+                    delete filters.with_genres;
+                }
             }
         }
 
@@ -103,6 +120,10 @@ const Explore = () => {
                     <div className="pageTitle">
                         {mediaType === "tv"
                             ? "Explore TV Shows"
+                            : mediaType === "cartoon"
+                            ? "Explore Cartoons"
+                            : mediaType === "month"
+                            ? "Trending this Month"
                             : "Explore Movies"}
                     </div>
                     <div className="filters">
@@ -137,9 +158,9 @@ const Explore = () => {
                         {data?.results?.length > 0 ? (
                             <InfiniteScroll
                                 className="content"
-                                dataLength={data?.results?.length || []}
+                                dataLength={data?.results?.length || 0}
                                 next={fetchNextPageData}
-                                hasMore={pageNum <= data?.total_pages}
+                                hasMore={pageNum <= (data?.total_pages || 1)}
                                 loader={<Spinner />}
                             >
                                 {data?.results?.map((item, index) => {
@@ -148,7 +169,7 @@ const Explore = () => {
                                         <MovieCard
                                             key={index}
                                             data={item}
-                                            mediaType={mediaType}
+                                            mediaType={item.media_type || exploreMediaType}
                                         />
                                     );
                                 })}

@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import "./style.scss";
 
 import useFetch from '../../../hooks/useFetch';
-import Img from '../../../components/lazyLoadImage/Img';
 import ContentWrapper from '../../../components/contentWrapper/ContentWrapper';
 import axios from "axios";
 

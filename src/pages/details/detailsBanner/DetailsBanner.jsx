@@ -14,6 +14,7 @@ import Img from "../../../components/lazyLoadImage/Img.jsx";
 import PosterFallback from "../../../assets/no-poster.png";
 import { PlayIcon } from "./Playbtn";
 import VideoPopup from "../../../components/videoPopup/VideoPopup";
+import ReactPlayer from "react-player/youtube";
 
 const DetailsBanner = ({ video, crew }) => {
     const [show, setShow] = useState(false);
@@ -21,6 +22,7 @@ const DetailsBanner = ({ video, crew }) => {
     const [screenshots, setScreenshots] = useState([]);
     const [reviews, setReviews] = useState([]);
     const [newReview, setNewReview] = useState("");
+    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
     const { mediaType, id } = useParams();
     const { data, loading } = useFetch(`/${mediaType}/${id}`);
@@ -40,7 +42,7 @@ const DetailsBanner = ({ video, crew }) => {
                         Authorization: `Bearer ${VITE_APP_TMDB_TOKEN}`,
                     },
                 });
-                setScreenshots(response.data.backdrops.slice(0, 6));
+                setScreenshots(response.data.backdrops.slice(0, 10)); // Fetch up to 10 diverse backdrops
             } catch (error) {
                 console.error("Error fetching screenshots:", error);
             }
@@ -52,13 +54,13 @@ const DetailsBanner = ({ video, crew }) => {
     }, [id, mediaType]);
 
     useEffect(() => {
-        const storedReviews = JSON.parse(localStorage.getItem("reviews")) || [];
+        const storedReviews = JSON.parse(localStorage.getItem(`reviews_${mediaType}_${id}`)) || [];
         setReviews(storedReviews);
-    }, []);
+    }, [mediaType, id]);
 
     useEffect(() => {
-        localStorage.setItem("reviews", JSON.stringify(reviews));
-    }, [reviews]);
+        localStorage.setItem(`reviews_${mediaType}_${id}`, JSON.stringify(reviews));
+    }, [reviews, mediaType, id]);
 
     const handleReviewSubmit = () => {
         if (newReview.trim() !== "") {
@@ -78,8 +80,8 @@ const DetailsBanner = ({ video, crew }) => {
         return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
     };
 
-    // Construct the download link for the MKV Cinemas website
-    const downloadLink = `https://mkvcinemas.app/${data?.title.replace(/\s+/g, '-').toLowerCase()}`;
+    const watchLink = data?.homepage || `https://www.google.com/search?q=${encodeURIComponent((data?.title || data?.name) + " official website")}`;
+    const hdhubLink = `https://new5.hdhub4u.fo/?s=${encodeURIComponent((data?.title || data?.name) + " " + dayjs(data?.release_date || data?.first_air_date).format("YYYY"))}&utm=mn`;
 
     return (
         <div className="detailsBanner">
@@ -87,8 +89,51 @@ const DetailsBanner = ({ video, crew }) => {
                 <>
                     {!!data && (
                         <React.Fragment>
-                            <div className="backdrop-img">
-                                <Img src={url.backdrop + data.backdrop_path} />
+                            <div className="backdrop-img" style={{ overflow: "hidden", opacity: 1 }}>
+                                <div style={{ 
+                                    width: "100%", height: "100%", 
+                                    opacity: isVideoPlaying ? 0 : 1, 
+                                    transition: "opacity 1s ease-in-out" 
+                                }}>
+                                    <Img src={url.backdrop + data?.backdrop_path} />
+                                </div>
+                                {video?.key && (
+                                    <div style={{
+                                        position: "absolute",
+                                        top: 0,
+                                        left: 0,
+                                        width: "100%",
+                                        height: "100%",
+                                        opacity: isVideoPlaying ? 1 : 0,
+                                        transition: "opacity 1s ease",
+                                        pointerEvents: "none"
+                                    }}>
+                                            <ReactPlayer
+                                                url={`https://www.youtube.com/watch?v=${video.key}?autoplay=1&mute=1&controls=0&playsinline=1`}
+                                                playing={true}
+                                                muted={true}
+                                                controls={false}
+                                                loop={true}
+                                                width="100%"
+                                                height="100%"
+                                                onPlay={() => setIsVideoPlaying(true)}
+                                                className="react-player-custom"
+                                            config={{
+                                                youtube: {
+                                                    playerVars: {
+                                                        autoplay: 1,
+                                                        mute: 1,
+                                                        controls: 0,
+                                                        playsinline: 1,
+                                                        loop: 1,
+                                                        playlist: video.key,
+                                                        modestbranding: 1
+                                                    }
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                )}
                             </div>
                             <div className="opacity-layer"></div>
                             <ContentWrapper>
@@ -102,12 +147,12 @@ const DetailsBanner = ({ video, crew }) => {
                                     </div>
                                     <div className="right">
                                         <div className="title">
-                                            {`${data.name || data.title} (${dayjs(data?.release_date).format("YYYY")})`}
+                                            {`${data?.name || data?.title} (${dayjs(data?.release_date || data?.first_air_date || new Date()).format("YYYY")})`}
                                         </div>
                                         <div className="subtitle">{data.tagline}</div>
                                         <Genres data={_genres} />
                                         <div className="row">
-                                            <CircleRating rating={data.vote_average.toFixed(1)} />
+                                            <CircleRating rating={data?.vote_average?.toFixed(1) || "N/A"} />
                                             <div
                                                 className="playbtn"
                                                 onClick={() => {
@@ -130,16 +175,16 @@ const DetailsBanner = ({ video, crew }) => {
                                                     <span className="text">{data.status}</span>
                                                 </div>
                                             )}
-                                            {data.release_date && (
+                                            {(data?.release_date || data?.first_air_date) && (
                                                 <div className="infoItem">
                                                     <span className="text bold">Release Date: </span>
-                                                    <span className="text">{dayjs(data.release_date).format("MMM D, YYYY")}</span>
+                                                    <span className="text">{dayjs(data?.release_date || data?.first_air_date).format("MMM D, YYYY")}</span>
                                                 </div>
                                             )}
-                                            {data.runtime && (
+                                            {(data?.runtime || data?.episode_run_time?.[0]) && (
                                                 <div className="infoItem">
                                                     <span className="text bold">Runtime: </span>
-                                                    <span className="text">{toHoursAndMinutes(data.runtime)}</span>
+                                                    <span className="text">{toHoursAndMinutes(data?.runtime || data?.episode_run_time?.[0])}</span>
                                                 </div>
                                             )}
                                         </div>
@@ -183,20 +228,28 @@ const DetailsBanner = ({ video, crew }) => {
                                 </div>
 
                                 {/* Download Section */}
-                                <div className="downloadSection">
+                                <div className="watchNowSection">
                                     <a
-                                        className="downloadButton"
-                                        href={downloadLink}
+                                        className="watchNowButton"
+                                        href={watchLink}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
-                                        Download Movie
+                                        Watch Now
+                                    </a>
+                                    <a
+                                        className="watchNowButton downloadBtn"
+                                        href={hdhubLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Download [HDHub4U]
                                     </a>
                                 </div>
 
                                 {/* Screenshots Section */}
                                 <div className="screenshotsSection">
-                                    <h2 className="sectionTitle">Screenshots</h2>
+                                    <h2 className="sectionTitle">Movie Gallery</h2>
                                     <div className="screenshotsWrapper">
                                         {screenshots.map((screenshot, index) => (
                                             <div key={index} className="screenshotItem">

@@ -16,7 +16,7 @@
         transition: background-color 0.3s;
 
         &:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--black-light);
         }
 
         .suggestionImage {
@@ -28,7 +28,7 @@
         }
 
         .suggestionText {
-            color: black;
+            color: var(--text-main);
             font-size: 1rem;
         }
     }
@@ -66,8 +66,8 @@
         height: 250px;
         background: linear-gradient(
             180deg,
-            rgba(0, 0, 0, 0) 0%,
-            #141517 79.17%
+            rgba(var(--bg-rgb), 0) 0%,
+            var(--bg-color) 79.17%
         );
         position: absolute;
         bottom: 0;
@@ -89,6 +89,7 @@
             background: rgb(131,58,180);
             background: linear-gradient(333deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 700;
             margin-bottom: 30px;
@@ -116,7 +117,8 @@
             input {
                 width: calc(100% - 100px);
                 height: 50px;
-                background-color: white;
+                background-color: var(--black2);
+                color: var(--text-main);
                 outline: 0;
                 border: 0;
                 border-radius: 30px 0 0 30px;
@@ -155,8 +157,8 @@
             left: 0;
             line-height: 40px;
             font-size: 18px;
-            background: #fff;
-            color: #000;
+            background: var(--black2);
+            color: var(--text-main);
             width: 80%;
             border-radius: 0.3rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -165,29 +167,18 @@
             overflow-y: auto;
             margin: 10px;
             padding: 0;
-            li{
-                -webkit-border-radius: 0.5rem; /* For older WebKit-based browsers */
-                -moz-border-radius: 0.5rem; /* For older Firefox versions */
-                -ms-border-radius: 0.5rem; /* For older Internet Explorer versions */
-                -o-border-radius: 0.5rem; /* For older Opera versions */
-                border-radius: 0.5rem; /* Standard property */
-            }
             
+            li {
                 padding: 0.5rem;
                 cursor: pointer;
+                border-radius: 0.5rem;
 
                 &:hover {
-                    background-color: #f0f0f0;
+                    background-color: var(--black-light);
                 }
             }
-            // li {
-            //     padding: 0.5rem;
-            //     cursor: pointer;
+        }
 
-            //     &:hover {
-            //         background-color: #f0f0f0;
-            //     }
-            // }
         }
     }
 

@@ -4,7 +4,7 @@
     margin-bottom: 50px;
     .sectionHeading {
         font-size: 24px;
-        color: white;
+        color: var(--text-main);
         margin-bottom: 25px;
     }
     .videos {
@@ -46,12 +46,12 @@
                 .triangle {
                     stroke-dasharray: 240;
                     stroke-dashoffset: 480;
-                    stroke: white;
+                    stroke: var(--text-main);
                     transform: translateY(0);
                     transition: all 0.7s ease-in-out;
                 }
                 .circle {
-                    stroke: white;
+                    stroke: var(--text-main);
                     stroke-dasharray: 650;
                     stroke-dashoffset: 1300;
                     transition: all 0.5s ease-in-out;
@@ -73,7 +73,7 @@
                 }
             }
             .videoTitle {
-                color: white;
+                color: var(--text-main);
                 font-size: 14px;
                 line-height: 20px;
                 @include md {

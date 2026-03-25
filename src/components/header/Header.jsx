@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
 import { SlMenu } from "react-icons/sl";
 import { VscChromeClose } from "react-icons/vsc";
+import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./style.scss";
 import ContentWrapper from "../contentWrapper/ContentWrapper";
-import logo from "../../../public/new.jpg"
 
 const Header = () => {
     const [show, setShow] = useState("top");
@@ -15,6 +15,20 @@ const Header = () => {
     const [showSearch, setShowSearch] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+
+    useEffect(() => {
+        if (theme === 'light') {
+            document.body.setAttribute('data-theme', 'light');
+        } else {
+            document.body.removeAttribute('data-theme');
+        }
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme(theme === 'light' ? 'dark' : 'light');
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -38,6 +52,7 @@ const Header = () => {
         return () => {
             window.removeEventListener("scroll", controlNavbar);
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lastScrollY]);
 
     const searchQueryHandler = (event) => {
@@ -62,15 +77,14 @@ const Header = () => {
     const navigationHandler = (type) => {
         if (type === "movie") {
             navigate("/explore/movie");
-        } else {
+        } else if (type === "tv") {
             navigate("/explore/tv");
+        } else if (type === "cartoon") {
+            navigate("/explore/cartoon");
+        } else if (type === "month") {
+            navigate("/explore/month");
         }
         setMobileMenu(false);
-    };
-
-    // Navigate to login page
-    const navigateToLogin = () => {
-        navigate("/login");
     };
 
     return (
@@ -82,6 +96,14 @@ const Header = () => {
                 </div>
                 <ul className="menuItems">
                     <li className="menuItem" onClick={() => navigationHandler("movie")}>Movies</li>
+                    <li className="menuItem" onClick={() => navigationHandler("tv")}>TV Shows</li>
+                    <li className="menuItem" onClick={() => navigationHandler("cartoon")}>Cartoons</li>
+                    <li className="menuItem" onClick={() => navigationHandler("month")}>Month</li>
+                    <li className="menuItem" style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
+                        {theme === 'light' 
+                            ? <BsFillMoonFill onClick={toggleTheme} /> 
+                            : <BsFillSunFill onClick={toggleTheme} />}
+                    </li>
                     <li className="menuItem">
                         <HiOutlineSearch onClick={openSearch} />
                     </li>
@@ -90,6 +112,9 @@ const Header = () => {
                     </li> */}
                 </ul>
                 <div className="mobileMenuItems">
+                    {theme === 'light' 
+                        ? <BsFillMoonFill onClick={toggleTheme} style={{marginRight: '15px'}}/> 
+                        : <BsFillSunFill onClick={toggleTheme} style={{marginRight: '15px'}}/>}
                     <HiOutlineSearch onClick={openSearch} />
                     {mobileMenu ? (
                         <VscChromeClose onClick={() => setMobileMenu(false)} />

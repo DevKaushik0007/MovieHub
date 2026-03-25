@@ -1,6 +1,6 @@
 .switchingTabs {
     height: 34px;
-    background-color: white;
+    background-color: var(--black2);
     border-radius: 20px;
     padding: 2px;
     .tabItems {
@@ -14,7 +14,7 @@
             align-items: center;
             justify-content: center;
             width: 100px;
-            color: var(--black);
+            color: var(--text-main);
             font-size: 14px;
             font-weight: bold;
             position: relative;
@@ -22,7 +22,7 @@
             cursor: pointer;
             transition: color ease 0.3s;
             &.active {
-                color: white;
+                color: var(--text-light);
             }
         }
         .movingBg {

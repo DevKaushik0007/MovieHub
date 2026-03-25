@@ -1,0 +1,87 @@
+@import "../../mixins.scss";
+
+.personPage {
+    padding-top: 100px;
+    min-height: 100vh;
+    .personInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 50px;
+        @include md {
+            flex-direction: row;
+        }
+        .left {
+            flex-shrink: 0;
+            width: 100%;
+            @include md {
+                width: 300px;
+            }
+            .profileImg {
+                width: 100%;
+                border-radius: 12px;
+                display: block;
+            }
+        }
+        .right {
+            flex: 1;
+            color: white;
+            .name {
+                font-size: 34px;
+                margin-bottom: 20px;
+            }
+            .bio {
+                margin-bottom: 20px;
+                h3 {
+                    margin-bottom: 10px;
+                    font-size: 24px;
+                }
+                p {
+                    font-size: 16px;
+                    line-height: 1.6;
+                    opacity: 0.8;
+                }
+            }
+            .infoGrid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                .infoItem {
+                    display: flex;
+                    flex-direction: column;
+                    .bold {
+                        font-weight: 600;
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
+    }
+    .knownFor {
+        h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: white;
+        }
+        .moviesGrid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 50px;
+            @include md {
+                gap: 20px;
+            }
+            .movieCard {
+                width: calc(50% - 5px);
+                margin-bottom: 20px;
+                flex-shrink: 0;
+                @include md {
+                    width: calc(25% - 15px);
+                }
+                @include lg {
+                    width: calc(20% - 16px);
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { fetchDataFromApi } from "./utils/api";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getApiConfiguration, getGenres } from "./store/homeSlice";
 
 // Import components
@@ -12,15 +12,15 @@ import SearchResult from "./pages/searchResult/SearchResult";
 import Explore from "./pages/explore/Explore";
 import PageNotfound from "./pages/404/PageNotFound";
 import Header from "./components/header/Header";
-import Login from "./components/login/Login";  // Ensure correct path
+import Person from "./pages/person/Person";
 
 function App() {
     const dispatch = useDispatch();
-    const { url } = useSelector((state) => state.home);
 
     useEffect(() => {
         fetchApiConfig();
         genresCall();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const fetchApiConfig = () => {
@@ -54,10 +54,10 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
                 <Route path="/:mediaType/:id" element={<Details />} />
                 <Route path="/search/:query" element={<SearchResult />} />
                 <Route path="/explore/:mediaType" element={<Explore />} />
+                <Route path="/person/:id" element={<Person />} />
                 <Route path="*" element={<PageNotfound />} />
             </Routes>
             <Footer />

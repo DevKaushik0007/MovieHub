@@ -1,0 +1,17 @@
+﻿
+> project-moviz@0.0.0 build
+> vite build
+
+[36mvite v4.4.9 [32mbuilding for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 307 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                      [39m[1m[2m  4.92 kB[22m[1m[22m[2m Γöé gzip:   3.63 kB[22m
+[2mdist/[22m[32massets/new-434f0d04.jpg         [39m[1m[2m 18.57 kB[22m[1m[22m
+[2mdist/[22m[32massets/no-results-aafff382.png  [39m[1m[2m 50.72 kB[22m[1m[22m
+[2mdist/[22m[32massets/avatar-bd5ec287.png      [39m[1m[2m170.79 kB[22m[1m[22m
+[2mdist/[22m[32massets/no-poster-af8294eb.png   [39m[1m[2m228.31 kB[22m[1m[22m
+[2mdist/[22m[35massets/index-344ac0f6.css       [39m[1m[2m 33.07 kB[22m[1m[22m[2m Γöé gzip:   5.62 kB[22m
+[2mdist/[22m[36massets/index-1c0287af.js        [39m[1m[2m436.05 kB[22m[1m[22m[2m Γöé gzip: 144.84 kB[22m
+[32mΓ£ô built in 7.83s[39m

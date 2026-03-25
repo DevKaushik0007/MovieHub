@@ -30,7 +30,7 @@
             height: 100%;
             border-radius: 12px;
             overflow: hidden;
-            border: 3px solid white;
+            border: 3px solid var(--black-light);
             img {
                 width: 100%;
                 height: 100%;
@@ -43,7 +43,7 @@
             height: 40px;
             position: relative;
             top: 30px;
-            background-color: white;
+            background-color: var(--black2);
             flex-shrink: 0;
             @include md {
                 width: 50px;
@@ -61,7 +61,7 @@
         }
     }
     .textBlock {
-        color: white;
+        color: var(--text-main);
         display: flex;
         flex-direction: column;
         .title {
@@ -75,7 +75,7 @@
         }
         .date {
             font-size: 14px;
-            opacity: 0.5;
+            color: var(--text-desc);
         }
     }
     &:hover {

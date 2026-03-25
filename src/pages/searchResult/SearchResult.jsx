@@ -9,8 +9,6 @@ import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 import MovieCard from "../../components/movieCard/MovieCard";
 import Spinner from "../../components/spinner/Spinner";
 
-import noResults from "../../assets/no-results.png";
-
 const SearchResult = () => {
     const [data, setData] = useState(null);
     const [pageNum, setPageNum] = useState(1);
@@ -34,7 +32,7 @@ const SearchResult = () => {
                 if (data?.results) {
                     setData({
                         ...data,
-                        results: [...data?.results, ...res.results],
+                        results: [...data.results, ...res.results],
                     });
                 } else {
                     setData(res);
@@ -47,6 +45,7 @@ const SearchResult = () => {
     useEffect(() => {
         setPageNum(1);
         fetchInitialData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query]);
 
 
@@ -68,9 +67,9 @@ const SearchResult = () => {
                             </div>
                             <InfiniteScroll
                                 className="content"
-                                dataLength={data?.results?.length || []}
+                                dataLength={data?.results?.length || 0}
                                 next={fetchNextPageData}
-                                hasMore={pageNum <= data?.total_pages}
+                                hasMore={pageNum <= (data?.total_pages || 1)}
                                 loader={<Spinner />}
                             >
                                 {data?.results.map((item, index) => {

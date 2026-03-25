@@ -9,13 +9,27 @@ import Carousel from '../../../components/carousel/Carousel';
 
 
 const TopRated = () => {
-    const [endpoint, setEndpoint] = useState("movie")
-    const {data, loading } = useFetch(`/${endpoint}/top_rated
-    `);
+    const [endpoint, setEndpoint] = useState("movie");
+    const [filter, setFilter] = useState("");
 
     const onTabChange = (tab) => {
-        setEndpoint(tab === "Movies" ? "movie" : "tv");
+        if (tab === "Movies") {
+            setEndpoint("movie");
+            setFilter("");
+        } else if (tab === "TV Shows") {
+            setEndpoint("tv");
+            setFilter("");
+        } else if (tab === "Cartoons") {
+            setEndpoint("tv");
+            setFilter("cartoon");
+        }
     };
+
+    const fetchUrl = filter === "cartoon" 
+        ? `/discover/tv?with_genres=16` 
+        : `/${endpoint}/top_rated`;
+
+    const { data, loading } = useFetch(fetchUrl);
 
   return(
      <div className='carouselSection'>

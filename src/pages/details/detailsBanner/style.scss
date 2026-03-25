@@ -1,349 +1,51 @@
 @import "../../../mixins.scss";
-
-.downloadSection {
-    margin-top: 20px;
-
-    .downloadButton {
-        padding: 10px 20px;
-        background-color: #ff2d55; /* Change to your desired color */
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background-color 0.3s;
-
-        &:hover {
-            background-color: #e60000; /* Change to a darker shade for hover effect */
-        }
-    }
-}
-
-
-
-// .detailsBanner {
-//     .review-section {
-//         margin-top: 20px;
-//         padding: 15px;
-//         background-color: #f9f9f9;
-//         border-radius: 8px;
-//         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-//         h3 {
-//             margin-bottom: 10px;
-//             font-size: 1.2rem;
-//             color: #333;
-//         }
-
-//         textarea {
-//             width: 100%;
-//             padding: 10px;
-//             border: 1px solid #ddd;
-//             border-radius: 5px;
-//             resize: none;
-//             height: 80px;
-//             font-size: 1rem;
-//             margin-bottom: 10px;
-//         }
-
-//         button {
-//             background-color: #007bff;
-//             color: white;
-//             padding: 8px 16px;
-//             border: none;
-//             border-radius: 5px;
-//             cursor: pointer;
-
-//             &:hover {
-//                 background-color: #0056b3;
-//             }
-//         }
-
-//         .reviews-list {
-//             margin-top: 15px;
-
-//             .review-item {
-//                 background-color: white;
-//                 padding: 10px;
-//                 margin-bottom: 10px;
-//                 border-radius: 5px;
-//                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-//                 display: flex;
-//                 justify-content: space-between;
-                
-//                 align-items: center;
-
-//                 span {
-//                     font-size: 1rem;
-//                     color: #333;
-//                 }
-
-//                 .delete-btn {
-//                     background-color: transparent;
-//                     border: none;
-//                     color: red;
-//                     font-size: 1.5rem;
-//                     cursor: pointer;
-//                     padding: 0 10px;
-
-//                     &:hover {
-//                         color: darkred;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-.detailsBanner {
-    position: relative;
-    color: #fff;
-
-    .backdrop-img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: -1;
-    }
-
-    .opacity-layer {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 0;
-    }
-
-    .content {
-        display: flex;
-        gap: 2rem;
-
-        .left {
-            .posterImg {
-                width: 200px;
-                height: 300px;
-                border-radius: 8px;
-                object-fit: cover;
-            }
-        }
-
-        .right {
-            .title {
-                font-size: 2rem;
-                font-weight: bold;
-            }
-
-            .subtitle {
-                font-size: 1.2rem;
-                color: #ccc;
-            }
-
-            .infoItem {
-                margin-bottom: 1rem;
-
-                .text {
-                    &.bold {
-                        font-weight: bold;
-                    }
-                }
-            }
-
-            .overview {
-                .heading {
-                    font-size: 1.5rem;
-                    font-weight: bold;
-                    margin-bottom: 0.5rem;
-                }
-
-                .description {
-                    font-size: 1rem;
-                    line-height: 1.5;
-                }
-            }
-
-            .row {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-
-                .playbtn {
-                    display: flex;
-                    align-items: center;
-                    cursor: pointer;
-
-                    .text {
-                        margin-left: 0.5rem;
-                    }
-                }
-            }
-        }
-    }
-
-    .detailsBannerSkeleton {
-        .left.skeleton,
-        .right .row.skeleton {
-            background: #333;
-            border-radius: 4px;
-        }
-
-        .left.skeleton {
-            width: 200px;
-            height: 300px;
-        }
-
-        .right .row.skeleton {
-            height: 20px;
-            margin-bottom: 1rem;
-        }
-    }
-
-    .downloadButton {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff6600;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: #ff4500;
-    }
-}
-
-
-    .screenshotsSection {
-        margin-top: 2rem;
-
-        .screenshotsTitle {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .screenshotsGrid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-
-            .screenshotImg {
-                width: 100%;
-                height: 100px;
-                object-fit: cover;
-                border-radius: 8px;
-            }
-        }
-    }
-
-    .reviewSection {
-        margin-top: 2rem;
-
-        .reviewTitle {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        textarea {
-            width: 100%;
-            height: 100px;
-            padding: 1rem;
-            border: none;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            resize: none;
-            font-size: 1rem;
-        }
-
-        button {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 8px;
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-
-            &:hover {
-                background-color: #0056b3;
-            }
-        }
-
-        .reviewList {
-            margin-top: 1rem;
-
-            .reviewItem {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0.5rem 0;
-                border-bottom: 1px solid #ccc;
-
-                .delete-btn {
-                    background: none;
-                    border: none;
-                    color: #ff0000;
-                    font-size: 1.2rem;
-                    cursor: pointer;
-                    transition: color 0.3s;
-
-                    &:hover {
-                        color: #cc0000;
-                    }
-                }
-            }
-        }
-    }
-}
-
-.screenshotsSection {
-    margin-top: 40px;
-    .sectionTitle {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-    .screenshotsWrapper {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 3 images per row */
-        gap: 15px;
-    }
-    .screenshotItem img {
-        width: 100%;
-        border-radius: 10px;
-        object-fit: cover;
-    }
-}
-
 .detailsBanner {
     width: 100%;
-    background-color: var(--black);
+    background-color: var(--bg-color);
     padding-top: 100px;
     margin-bottom: 50px;
+    position: relative;
+    color: var(--text-main);
+
     @include md {
         margin-bottom: 0;
         padding-top: 120px;
         min-height: 700px;
     }
+
+    .contentWrapper {
+        padding-top: 250px;
+        @include md {
+            padding-top: 0;
+        }
+    }
+
     .backdrop-img {
         width: 100%;
-        height: 100%;
+        height: 500px;
         position: absolute;
         top: 0;
         left: 0;
-        opacity: 0.1;
+        opacity: 0.8;
         overflow: hidden;
+        @include md {
+            height: 400px;
+            opacity: 0.4;
+        }
+
+        .react-player-custom {
+            transform: scale(1.1);
+            transform-origin: center center;
+            @include md {
+                transform: scale(1.3);
+            }
+        }
         .lazy-load-image-background {
             width: 100%;
-            height: 100%;
+            height: 500px;
+            @include md {
+                height: 400px;
+            }
             img {
                 width: 100%;
                 height: 100%;
@@ -352,13 +54,19 @@
             }
         }
     }
+    
     .opacity-layer {
         width: 100%;
-        height: 250px;
-        background: (--black);
+        height: 500px;
+        background: linear-gradient(to top, var(--bg-color) 20%, transparent 100%);
         position: absolute;
-        bottom: 0;
+        top: 0;
         left: 0;
+        pointer-events: none;
+        @include md {
+            height: 400px;
+            background: linear-gradient(to top, var(--bg-color) 0%, transparent 100%);
+        }
     }
 
     .content {
@@ -376,19 +84,23 @@
                 width: 100%;
                 display: block;
                 border-radius: 12px;
+                border: 1px solid var(--black-light);
                 @include md {
                     max-width: 350px;
                 }
             }
         }
         .right {
-            color: white;
+            color: var(--text-main);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
             .title {
                 font-size: 28px;
-                line-height: 40px;
+                line-height: 32px;
+                margin-top: 10px;
                 @include md {
                     font-size: 34px;
                     line-height: 44px;
+                    margin-top: 0;
                 }
             }
             .subtitle {
@@ -396,7 +108,7 @@
                 line-height: 24px;
                 margin-bottom: 15px;
                 font-style: italic;
-                opacity: 0.5;
+                color: var(--text-desc);
                 @include md {
                     font-size: 20px;
                     line-height: 28px;
@@ -426,7 +138,7 @@
                     max-width: 90px;
                 }
                 .CircularProgressbar-text {
-                    fill: white;
+                    fill: var(--text-main);
                 }
             }
             .playbtn {
@@ -447,12 +159,12 @@
                 .triangle {
                     stroke-dasharray: 240;
                     stroke-dashoffset: 480;
-                    stroke: white;
+                    stroke: var(--text-main);
                     transform: translateY(0);
                     transition: all 0.7s ease-in-out;
                 }
                 .circle {
-                    stroke: white;
+                    stroke: var(--text-main);
                     stroke-dasharray: 650;
                     stroke-dashoffset: 1300;
                     transition: all 0.5s ease-in-out;
@@ -481,7 +193,7 @@
             }
 
             .info {
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid var(--black-light);
                 padding: 15px 0;
                 display: flex;
                 .infoItem {
@@ -491,11 +203,11 @@
                 }
                 .text {
                     margin-right: 10px;
-                    opacity: 0.5;
+                    color: var(--text-desc);
                     line-height: 24px;
                     &.bold {
                         font-weight: 600;
-                        opacity: 1;
+                        color: var(--text-main);
                     }
                 }
             }
@@ -543,4 +255,126 @@
             }
         }
     }
-}
+
+    .watchNowSection {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .watchNowButton {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ff6600;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #ff4500;
+        }
+
+        &.downloadBtn {
+            background-color: #2ec4b6;
+            &:hover {
+                background-color: #24998d;
+            }
+        }
+    }
+
+    .screenshotsSection {
+        margin-top: 40px;
+        .sectionTitle {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+        .screenshotsWrapper {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 10px 0;
+            cursor: grab;
+            
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .screenshotItem {
+                flex-shrink: 0;
+                width: 280px;
+                @include md {
+                    width: 450px;
+                }
+                
+                img {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 12px;
+                    object-fit: cover;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                    transition: transform 0.3s ease;
+
+                    &:hover {
+                        transform: scale(1.03);
+                    }
+                }
+            }
+        }
+    }
+
+    .reviewSection {
+        margin-top: 40px;
+        .reviewTitle {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid var(--black-light);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: var(--black2);
+            color: var(--text-main);
+            resize: none;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            &:hover {
+                background-color: #0056b3;
+            }
+        }
+        .reviewList {
+            margin-top: 20px;
+            .reviewItem {
+                background-color: var(--black2);
+                padding: 15px;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border: 1px solid var(--black-light);
+                .delete-btn {
+                    color: #ff2d55;
+                    cursor: pointer;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+}
