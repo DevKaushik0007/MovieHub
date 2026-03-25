@@ -4,7 +4,7 @@ const BASE_URL = "https://api.themoviedb.org/3";
 const TMDB_TOKEN = import.meta.env.VITE_APP_TMDB_TOKEN;
 
 const headers = {
-    Authorization: "Bearer " + TMDB_TOKEN,
+    Authorization: "Bearer " + TMDB_TOKEN,   // MUST be capital Bearer
     "Content-Type": "application/json",
 };
 
@@ -18,7 +18,6 @@ export const fetchDataFromApi = async (url, params) => {
                 ...params,
             },
         });
-
         return data;
     } catch (err) {
         console.error("TMDB API Error:", err.response?.data || err.message);

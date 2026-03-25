@@ -14,12 +14,13 @@
     .menuItems {
         list-style-type: none;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        gap: 15px;
+        gap: 10px;
         margin-bottom: 20px;
         @include md {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             gap: 30px;
         }
         .menuItem {

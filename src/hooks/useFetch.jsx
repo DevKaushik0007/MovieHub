@@ -29,13 +29,9 @@ const useFetch = (url) => {
                 setData(res);
                 setLoading(false);
             })
-<<<<<<< HEAD
             .catch((err) => {
                 console.error(err);
                 setError("Failed to load data");
-=======
-            .catch(() => {
->>>>>>> eaa593e (updated backend proxy and fixed TMDB API issue)
                 setLoading(false);
             });
     }, [url]);
